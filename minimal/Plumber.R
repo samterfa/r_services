@@ -18,7 +18,7 @@ function(msg=""){
 #* @serializer text
 function(min, max){
   
-  x <- runif(n = 1, min = min, max = max)
+  x <- runif(n = 1, min = as.numeric(min), max = as.numeric(max))
   
   paste0('<h3>', x, '</h3>')
 }
