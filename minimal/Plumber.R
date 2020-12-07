@@ -22,3 +22,11 @@ function(min = 0, max = 1){
   
   paste0('<h3>', x, '</h3>')
 }
+
+#* iris datatable
+#* @get /iris
+#* @serializer htmlwidget
+function(){
+  
+  DT::datatable(iris)
+}
