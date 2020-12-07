@@ -1,9 +1,9 @@
 FROM rocker/tidyverse
 
-#### Uncomment the following lines to install packages into your container not included in the rocker/tidyverse container. ####
-# RUN install2.r {CRAN packages separated by spaces}
+#### Install CRAN or Github packages not included in rocker/tidyverse container.
+RUN install2.r plumber  # Add more packages separated by spaces.
 
-# RUN installGithub.r {Github packages separated by spaces}
+# RUN installGithub.r # Uncomment to add Github packages.
 
 #### Copies the files in this directory to files in your container.
 COPY [".", "./"]

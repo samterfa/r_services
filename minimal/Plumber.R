@@ -1,4 +1,3 @@
-
 if(Sys.getenv('PORT') == '') Sys.setenv(PORT = 8000)
 
 #' @apiTitle My R Service
