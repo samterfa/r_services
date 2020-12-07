@@ -1,5 +1,4 @@
 
-# Swagger docs at ...s/__swagger__/ (needs trailing slash!)
 if(Sys.getenv('PORT') == '') Sys.setenv(PORT = 8000)
 
 #' @apiTitle My R Service

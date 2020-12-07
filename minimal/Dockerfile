@@ -5,7 +5,7 @@ FROM rocker/tidyverse
 
 # RUN installGithub.r {Github packages separated by spaces}
 
-#### This copies the files in this directory to files in your container.
+#### Copies the files in this directory to files in your container.
 COPY [".", "./"]
 
 #### This starts your R-powered service.
