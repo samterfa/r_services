@@ -1,5 +1,5 @@
 #' @apiTitle My R Service
-#' @apiDescription This service runs scalable R scripts on Google Cloud Run.
+#' @apiDescription This service runs R scripts on Google Cloud Run.
 
 # EXAMPLE 3
 #* iris datatable
