@@ -17,6 +17,8 @@ preloadSecrets <- function(secrets, project_number = Sys.getenv('google_cloud_pr
     
     res <- gargle::request_make(req)
     
+    print(res)
+    
     secret_val <- httr::content(res)$payload$data %>% base64enc::base64decode() %>% rawToChar() %>% jsonlite::fromJSON()
     
     # By convention in Google Secret Manager, if object has JSON structure...
