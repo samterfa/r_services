@@ -1,3 +1,4 @@
 *.DS*
 *.creds*
 .R*
+*.Rproj*
