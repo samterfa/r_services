@@ -1,7 +1,8 @@
 FROM rocker/tidyverse
 
 #### Install CRAN or Github packages not included in rocker/tidyverse container.
-# RUN # Add CRAN packages separated by spaces.
+
+RUN install2.r gargle # Add CRAN packages separated by spaces.
 
 RUN installGithub.r samterfa/rSlack rstudio/plumber # Add Github packages separated by spaces.
 
