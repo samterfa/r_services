@@ -48,7 +48,8 @@ function(req, res, text, ...){
                      view = rSlack::view_object(type = 'modal', 
                                         title = rSlack::text_object(type = 'plain_text', text = 'Testing'), 
                                         blocks = list(rSlack::button_element(text = rSlack::text_object(type = 'plain_text', 
-                                                                                                        text = 'This is a button')))))
+                                                                                                        text = 'This is a button')))),
+                     return_response = T)
   
   print(response)
   print(httr::content(response))
