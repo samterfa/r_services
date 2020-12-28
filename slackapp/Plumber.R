@@ -35,6 +35,7 @@ if(Sys.getenv('PORT') == '') Sys.setenv(PORT = 8000)
 function(req, res, text, ...){
   
   require(dplyr)
+  require(rSlack)
   
   print('Slack Request Incoming')
   
