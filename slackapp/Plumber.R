@@ -43,12 +43,15 @@ function(req, res, text, ...){
   print(Sys.getenv('slack_auth_token'))
   print(req$body$trigger_id)
   
-  rSlack::views_open(token = Sys.getenv('slack_auth_token'), 
+  response <- rSlack::views_open(token = Sys.getenv('slack_auth_token'), 
                      trigger_id = req$body$trigger_id, 
                      view = rSlack::view_object(type = 'modal', 
                                         title = rSlack::text_object(type = 'plain_text', text = 'Testing'), 
                                         blocks = list(rSlack::button_element(text = rSlack::text_object(type = 'plain_text', 
                                                                                                         text = 'This is a button')))))
+  
+  print(response)
+  print(httr::content(response))
   
   return('')
 }
