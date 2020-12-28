@@ -40,16 +40,43 @@ function(req, res, text, ...){
   
   res <- checkSlackAuth(req, res)
   
-  print(Sys.getenv('slack_auth_token'))
-  print(req$body$trigger_id)
-  
-  response <- rSlack::views_open(token = Sys.getenv('slack_auth_token'), 
-                     trigger_id = req$body$trigger_id, 
-                     view = rSlack::view_object(type = 'modal', 
-                                        title = rSlack::text_object(type = 'plain_text', text = 'Testing'), 
-                                        blocks = list(rSlack::button_element(text = rSlack::text_object(type = 'plain_text', 
-                                                                                                        text = 'This is a button')))),
-                     return_response = T)
+  response <- views_open(token = Sys.getenv('slack_auth_token'), 
+                         trigger_id = req$body$trigger_id, 
+                         view = view_object(type = 'modal', 
+                                            title = text_object(type = 'plain_text', 
+                                                                text = 'Testing', 
+                                                                emoji = F), 
+                                            blocks = list(actions_block(elements = list(button_element(text = text_object(type = 'plain_text', 
+                                                                                                                          text = 'Test Paragraph', 
+                                                                                                                          emoji = F), 
+                                                                                                       action_id = 'button', 
+                                                                                                       url = 'https://www.google.com', 
+                                                                                                       value = 'testing', 
+                                                                                                       style = 'primary', 
+                                                                                                       confirm = confirm_object(title = text_object(type = 'plain_text', 
+                                                                                                                                                    text = 'Confirm Title'), 
+                                                                                                                                confirm = text_object(type = 'plain_text', 
+                                                                                                                                                      text = 'Confirm'), 
+                                                                                                                                deny = text_object(type = 'plain_text', 
+                                                                                                                                                   text = 'Cancel', 
+                                                                                                                                                   emoji = F), 
+                                                                                                                                text = text_object(type = 'plain_text', 
+                                                                                                                                                   text = 'help text', 
+                                                                                                                                                   emoji = F), 
+                                                                                                                                style = 'primary'))), 
+                                                                        block_id = 'action_button')), 
+                                            close = text_object(type = 'plain_text', 
+                                                                text = 'Close', 
+                                                                emoji = F), 
+                                            submit = text_object(type = 'plain_text', 
+                                                                 text = 'Submit', 
+                                                                 emoji = F), 
+                                            private_metadata = '', 
+                                            callback_id = '', 
+                                            clear_on_close = F, 
+                                            notify_on_close = F, 
+                                            external_id = ''), 
+                         return_response = T)
   
   print(response)
   print(httr::content(response))
