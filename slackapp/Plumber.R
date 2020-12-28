@@ -37,8 +37,6 @@ function(req, res, text, ...){
   require(dplyr)
   require(rSlack)
   
-  print('Slack Request Incoming')
-  
   res <- checkSlackAuth(req, res)
   
   response <- views_open(token = Sys.getenv('slack_auth_token'), 
@@ -47,24 +45,9 @@ function(req, res, text, ...){
                                             title = text_object(type = 'plain_text', 
                                                                 text = 'Testing', 
                                                                 emoji = F), 
-                                            blocks = list(actions_block(elements = list(button_element(text = text_object(type = 'plain_text', 
-                                                                                                                          text = 'Test Paragraph', 
-                                                                                                                          emoji = F), 
-                                                                                                       action_id = 'button', 
-                                                                                                       url = 'https://www.google.com', 
-                                                                                                       value = 'testing', 
-                                                                                                       style = 'primary', 
-                                                                                                       confirm = confirm_object(title = text_object(type = 'plain_text', 
-                                                                                                                                                    text = 'Confirm Title'), 
-                                                                                                                                confirm = text_object(type = 'plain_text', 
-                                                                                                                                                      text = 'Confirm'), 
-                                                                                                                                deny = text_object(type = 'plain_text', 
-                                                                                                                                                   text = 'Cancel', 
-                                                                                                                                                   emoji = F), 
-                                                                                                                                text = text_object(type = 'plain_text', 
-                                                                                                                                                   text = 'help text', 
-                                                                                                                                                   emoji = F), 
-                                                                                                                                style = 'primary'))), 
+                                            blocks = list(actions_block(elements = list(checkbox_element(action_id = 'checkbox', 
+                                                                                                         options = list(option_object(text = 'Option 1', 
+                                                                                                                                      value = 'Option 1 Value')))), 
                                                                         block_id = 'action_button')), 
                                             close = text_object(type = 'plain_text', 
                                                                 text = 'Close', 
