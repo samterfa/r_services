@@ -42,9 +42,9 @@ function(req, res, text, ...){
   
   rSlack::views_open(token = Sys.getenv('slack_auth_token'), 
                      trigger_id = req$body$trigger_id, 
-                     view = view_object(type = 'modal', 
-                                        title = text_object(type = 'plain_text', text = 'Testing'), 
-                                        blocks = list(button_element(text = text_object(type = 'plain_text', 
+                     view = rSlack::view_object(type = 'modal', 
+                                        title = rSlack::text_object(type = 'plain_text', text = 'Testing'), 
+                                        blocks = list(button_element(text = rSlack::text_object(type = 'plain_text', 
                                                                                         text = 'This is a button')))))
   
   return('')
