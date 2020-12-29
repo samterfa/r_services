@@ -40,6 +40,7 @@ function(req, res, text, ...){
   #res <- checkSlackAuth(req, res)
   assertthat::assert_that(verify_request(request_timestamp = req$HTTP_X_SLACK_REQUEST_TIMESTAMP, 
                                          request_signature = req$HTTP_X_SLACK_SIGNATURE, 
+                                         request_body_raw = req$bodyRaw,
                                          signing_secret = Sys.getenv('slack_signing_secret')))
   
   response <- views_open(token = Sys.getenv('slack_auth_token'), 
