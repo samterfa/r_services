@@ -4,7 +4,7 @@ FROM rocker/tidyverse
 
 RUN install2.r gargle # Add CRAN packages separated by spaces.
 
-RUN installGithub.r samterfa/rSlack rstudio/plumber # Add Github packages separated by spaces.
+RUN installGithub.r samterfa/slackme rstudio/plumber # Add Github packages separated by spaces.
 
 #### Copies the files in this directory to files in your container.
 COPY [".", "./"]
