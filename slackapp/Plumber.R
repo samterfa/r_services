@@ -63,5 +63,7 @@ function(req, res, text, ...){
                                             external_id = ''), 
                          return_response = T)
 
+  print(httr::content(response))
+  
   return('')
 }
