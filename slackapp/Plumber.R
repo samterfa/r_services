@@ -47,7 +47,7 @@ function(req, res, text, ...){
                                                                 text = 'Testing', 
                                                                 emoji = F), 
                                             blocks = list(context_block(elements = list(image_element(image_url = 'https://api.time.com/wp-content/uploads/2019/03/kitten-report.jpg',
-                                                                                                      alt_text = 'Cutest Kitty'))
+                                                                                                      alt_text = 'Cutest Kitty')
                                                                                         ), 
                                                                         block_id = 'action_button')), 
                                             close = text_object(type = 'plain_text', 
