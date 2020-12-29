@@ -1,4 +1,5 @@
 
+Sys.setenv(TZ = 'America/Chicago')
 source('Slack.R')
 source('GCP.R')
 
