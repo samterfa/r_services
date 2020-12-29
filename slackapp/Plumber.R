@@ -46,9 +46,8 @@ function(req, res, text, ...){
                                             title = text_object(type = 'plain_text', 
                                                                 text = 'Testing', 
                                                                 emoji = F), 
-                                            blocks = list(actions_block(elements = list(datepicker_element(action_id = 'datepicker', 
-                                                                                                           placeholder = 'Pick a Date', 
-                                                                                                           initial_date = Sys.Date())
+                                            blocks = list(context_block(elements = list(image_element(image_url = 'https://api.time.com/wp-content/uploads/2019/03/kitten-report.jpg',
+                                                                                                      alt_text = 'Cutest Kitty'))
                                                                                         ), 
                                                                         block_id = 'action_button')), 
                                             close = text_object(type = 'plain_text', 
@@ -63,9 +62,6 @@ function(req, res, text, ...){
                                             notify_on_close = F, 
                                             external_id = ''), 
                          return_response = T)
-  
-  print(response)
-  print(httr::content(response))
-  
+
   return('')
 }
