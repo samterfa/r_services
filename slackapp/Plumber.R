@@ -1,6 +1,5 @@
 
 Sys.setenv(TZ = 'America/Chicago')
-source('Slack.R')
 source('GCP.R')
 
 require(dplyr)
@@ -36,9 +35,12 @@ if(Sys.getenv('PORT') == '') Sys.setenv(PORT = 8000)
 function(req, res, text, ...){
   
   require(dplyr)
-  require(rSlack)
+  require(slackme)
   
-  res <- checkSlackAuth(req, res)
+  #res <- checkSlackAuth(req, res)
+  assertthat::assert_that(verify_request(request_timestamp = req$HTTP_X_SLACK_REQUEST_TIMESTAMP, 
+                                         request_signature = req$HTTP_X_SLACK_SIGNATURE, 
+                                         signing_secret = Sys.getenv('slack_signing_secret')))
   
   response <- views_open(token = Sys.getenv('slack_auth_token'), 
                          trigger_id = req$body$trigger_id, 
