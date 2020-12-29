@@ -45,9 +45,10 @@ function(req, res, text, ...){
                                             title = text_object(type = 'plain_text', 
                                                                 text = 'Testing', 
                                                                 emoji = F), 
-                                            blocks = list(actions_block(elements = list(checkbox_element(action_id = 'checkbox', 
-                                                                                                         options = list(option_object(text = 'Option 1', 
-                                                                                                                                      value = 'Option 1 Value')))), 
+                                            blocks = list(actions_block(elements = list(datepicker_element(action_id = 'datepicker', 
+                                                                                                           placeholder = 'Pick a Date', 
+                                                                                                           initial_date = Sys.Date())
+                                                                                        ), 
                                                                         block_id = 'action_button')), 
                                             close = text_object(type = 'plain_text', 
                                                                 text = 'Close', 
