@@ -1,0 +1,13 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+     
+  pre_build:
+    commands:
+      - docker build -t testing ./minimal
+  build:
+    commands:
+      - docker images
+      - docker run testing echo "Hello, World!" 
