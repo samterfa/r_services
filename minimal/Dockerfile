@@ -9,6 +9,9 @@ RUN install2.r plumber  # Add more packages separated by spaces.
 COPY [".", "./"]
 
 #### This starts your R-powered service.
-ENTRYPOINT ["Rscript", "-e", "pr <- plumber::plumb(commandArgs()[9]); pr$run(host='0.0.0.0', port = 8000), swagger = F)"]
+#ENTRYPOINT ["Rscript", "-e", "pr <- plumber::plumb(commandArgs()[9]); pr$run(host='0.0.0.0', port = 8000), swagger = F)"]
 
-CMD ["Plumber.R"]
+
+ADD Plumber.R ./
+
+CMD ["./Plumber.R"]
