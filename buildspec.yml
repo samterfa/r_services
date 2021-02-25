@@ -10,4 +10,4 @@ phases:
   build:
     commands:
       - docker images
-      - docker run testing echo "Hello, World!" 
+      - docker run testing -p 8000:8000
