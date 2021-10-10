@@ -1,21 +1,6 @@
 
 Sys.setenv(TZ = 'America/Chicago')
 
-require(dplyr)
-
-# # Grab project number from Google Compute Engine metadata.  See https://cloud.google.com/compute/docs/storing-retrieving-metadata for details.
-# if(gargle:::detect_gce()){
-#   # For deployed app.
-#   print('Loading project information from GCE.')
-#   project_number <- gargle:::gce_metadata_request('project/numeric-project-id') %>% httr::content() %>% rawToChar()
-#   project_id <- gargle:::gce_metadata_request('project/project-id') %>% httr::content() %>% rawToChar()
-# }else{
-#   #  For local testing, define google_cloud_project_number in .Renviron file.
-#   print('Loading project information from environment.')
-#   project_number <- Sys.getenv('google_cloud_project_number')
-#   project_id <- Sys.getenv('google_cloud_project_id')
-# }
-
 # Documentation at .../__docs__/ (needs trailing slash!)
 
 # For local testing
@@ -28,38 +13,41 @@ if(Sys.getenv('PORT') == '') Sys.setenv(PORT = 8000)
 #* @param req The request
 #* @param res The response
 #* @param text The text typed into Slack (If any)
-#* @post /slackapp
+#* @post /launchapp
 #* @serializer text
 function(req, res, text, ...){
   
   require(dplyr)
   require(slackme)
   
-  assertthat::assert_that(verify_request(request_timestamp = req$HTTP_X_SLACK_REQUEST_TIMESTAMP, 
-                                         request_signature = req$HTTP_X_SLACK_SIGNATURE, 
-                                         request_body_raw = req$bodyRaw,
-                                         signing_secret = Sys.getenv('slack_signing_secret')))
+  # Verify that request comes from Slack
+  assertthat::assert_that(
+    verify_request(request_timestamp = req$HTTP_X_SLACK_REQUEST_TIMESTAMP, 
+                   request_signature = req$HTTP_X_SLACK_SIGNATURE, 
+                   request_body_raw = req$bodyRaw,
+                   signing_secret = Sys.getenv('slack_signing_secret'))
+  )
   
-  response <- views_open(token = Sys.getenv('slack_auth_token'), 
-                         trigger_id = req$body$trigger_id, 
-                         view = view_object(type = 'modal', 
-                                            title = text_object(type = 'plain_text', 
-                                                                text = 'Testing', 
-                                                                emoji = F), 
-                                            blocks = list(context_block(elements = list(image_element(image_url = 'https://api.time.com/wp-content/uploads/2019/03/kitten-report.jpg',
-                                                                                                      alt_text = 'Cutest Kitty')
-                                                                                        ), 
-                                                                        block_id = 'action_button')), 
-                                            close = text_object(type = 'plain_text', 
-                                                                text = 'Close', 
-                                                                emoji = F), 
-                                            submit = text_object(type = 'plain_text', 
-                                                                 text = 'Submit', 
-                                                                 emoji = F), 
-                                            private_metadata = '', 
-                                            callback_id = '', 
-                                            clear_on_close = F, 
-                                            notify_on_close = F, 
-                                            external_id = ''), 
-                         return_response = T)
+  views_open(token = Sys.getenv('slack_auth_token'), 
+             trigger_id = req$body$trigger_id, 
+             view = view_object(type = 'modal', 
+                                title = text_object(type = 'plain_text', 
+                                                    text = 'Testing', 
+                                                    emoji = F), 
+                                blocks = list(context_block(elements = list(image_element(image_url = 'https://api.time.com/wp-content/uploads/2019/03/kitten-report.jpg',
+                                                                                          alt_text = 'Cutest Kitty')
+                                ), 
+                                block_id = 'action_button')), 
+                                close = text_object(type = 'plain_text', 
+                                                    text = 'Close', 
+                                                    emoji = F), 
+                                submit = text_object(type = 'plain_text', 
+                                                     text = 'Submit', 
+                                                     emoji = F), 
+                                private_metadata = '', 
+                                callback_id = '', 
+                                clear_on_close = F, 
+                                notify_on_close = F, 
+                                external_id = ''), 
+             return_response = T)
 }
