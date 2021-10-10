@@ -9,16 +9,18 @@ if(Sys.getenv('PORT') == '') Sys.setenv(PORT = 8000)
 #' @apiTitle R Slack Integration
 #' @apiDescription These endpoints allow the user to create custom functions in Slack which call R functions.
 
-#* Initiates our Slack App
+#* Launches our Slack App
 #* @param req The request
 #* @param res The response
 #* @param text The text typed into Slack (If any)
-#* @post /launchapp
+#* @post /launch
 #* @serializer text
 function(req, res, text, ...){
   
   require(dplyr)
   require(slackme)
+  
+  source('scripts.R')
   
   # Verify that request comes from Slack
   assertthat::assert_that(
@@ -28,26 +30,30 @@ function(req, res, text, ...){
                    signing_secret = Sys.getenv('slack_signing_secret'))
   )
   
-  views_open(token = Sys.getenv('slack_auth_token'), 
-             trigger_id = req$body$trigger_id, 
-             view = view_object(type = 'modal', 
-                                title = text_object(type = 'plain_text', 
-                                                    text = 'Testing', 
-                                                    emoji = F), 
-                                blocks = list(context_block(elements = list(image_element(image_url = 'https://api.time.com/wp-content/uploads/2019/03/kitten-report.jpg',
-                                                                                          alt_text = 'Cutest Kitty')
-                                ), 
-                                block_id = 'action_button')), 
-                                close = text_object(type = 'plain_text', 
-                                                    text = 'Close', 
-                                                    emoji = F), 
-                                submit = text_object(type = 'plain_text', 
-                                                     text = 'Submit', 
-                                                     emoji = F), 
-                                private_metadata = '', 
-                                callback_id = '', 
-                                clear_on_close = F, 
-                                notify_on_close = F, 
-                                external_id = ''), 
-             return_response = T)
+  push_opening_view(req)
+}
+
+
+#* Interact with our Slack App
+#* @param req The request
+#* @param res The response
+#* @param text The text typed into Slack (If any)
+#* @post /interact
+#* @serializer text
+function(req, res, text, ...){
+  
+  require(dplyr)
+  require(slackme)
+  
+  source('scripts.R')
+  
+  # Verify that request comes from Slack
+  assertthat::assert_that(
+    verify_request(request_timestamp = req$HTTP_X_SLACK_REQUEST_TIMESTAMP, 
+                   request_signature = req$HTTP_X_SLACK_SIGNATURE, 
+                   request_body_raw = req$bodyRaw,
+                   signing_secret = Sys.getenv('slack_signing_secret'))
+  )
+  
+  push_next_view(req)
 }
