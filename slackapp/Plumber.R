@@ -1,26 +1,24 @@
 
 Sys.setenv(TZ = 'America/Chicago')
-source('GCP.R')
 
 require(dplyr)
 
-# Grab project number from Google Compute Engine metadata.  See https://cloud.google.com/compute/docs/storing-retrieving-metadata for details.
-if(gargle:::detect_gce()){
-  # For deployed app.
-  print('Loading project information from GCE.')
-  project_number <- gargle:::gce_metadata_request('project/numeric-project-id') %>% httr::content() %>% rawToChar()
-  project_id <- gargle:::gce_metadata_request('project/project-id') %>% httr::content() %>% rawToChar()
-}else{
-  #  For local testing, define google_cloud_project_number in .Renviron file.
-  print('Loading project information from environment.')
-  project_number <- Sys.getenv('google_cloud_project_number')
-  project_id <- Sys.getenv('google_cloud_project_id')
-}
+# # Grab project number from Google Compute Engine metadata.  See https://cloud.google.com/compute/docs/storing-retrieving-metadata for details.
+# if(gargle:::detect_gce()){
+#   # For deployed app.
+#   print('Loading project information from GCE.')
+#   project_number <- gargle:::gce_metadata_request('project/numeric-project-id') %>% httr::content() %>% rawToChar()
+#   project_id <- gargle:::gce_metadata_request('project/project-id') %>% httr::content() %>% rawToChar()
+# }else{
+#   #  For local testing, define google_cloud_project_number in .Renviron file.
+#   print('Loading project information from environment.')
+#   project_number <- Sys.getenv('google_cloud_project_number')
+#   project_id <- Sys.getenv('google_cloud_project_id')
+# }
 
-secretsToLoad <- c('slack_json')
-preloadSecrets(secrets = secretsToLoad, project_number = project_number)
+# Documentation at .../__docs__/ (needs trailing slash!)
 
-# Swagger docs at ...s/__swagger__/ (needs trailing slash!)
+# For local testing
 if(Sys.getenv('PORT') == '') Sys.setenv(PORT = 8000)
 
 #' @apiTitle R Slack Integration
@@ -37,7 +35,6 @@ function(req, res, text, ...){
   require(dplyr)
   require(slackme)
   
-  #res <- checkSlackAuth(req, res)
   assertthat::assert_that(verify_request(request_timestamp = req$HTTP_X_SLACK_REQUEST_TIMESTAMP, 
                                          request_signature = req$HTTP_X_SLACK_SIGNATURE, 
                                          request_body_raw = req$bodyRaw,
@@ -65,8 +62,4 @@ function(req, res, text, ...){
                                             notify_on_close = F, 
                                             external_id = ''), 
                          return_response = T)
-
-  print(httr::content(response))
-  
-  return('')
 }
