@@ -31,10 +31,12 @@ function(req, res, text, ...){
   )
   
   push_opening_view(req)
+  
+  return('')
 }
 
 
-#* Interact with our Slack App
+#* Interacts with our Slack App
 #* @param req The request
 #* @param res The response
 #* @param text The text typed into Slack (If any)
@@ -56,4 +58,6 @@ function(req, res, text, ...){
   )
   
   push_next_view(req)
+  
+  return('')
 }
