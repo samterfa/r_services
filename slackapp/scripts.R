@@ -1,8 +1,6 @@
 
 push_opening_view <- function(req){
   
-  print(Sys.getenv('slack_auth_token'))
-  
   views_open(token = Sys.getenv('slack_auth_token'), 
              trigger_id = req$body$trigger_id, 
              view = view_object(type = 'modal', 
@@ -43,6 +41,8 @@ push_next_view <- function(req){
   next_modal <- list()
   next_modal$view <- read_json('next_modal.json')
   next_modal$trigger_id <- trigger_id
+  
+  print(next_modal)
   
   response <- httr::POST('https://slack.com/api/views.push', 
                          
