@@ -33,20 +33,16 @@ push_next_view <- function(req){
   
   payload <- jsonlite::fromJSON(req$body$payload, F, F, F, F)
   
-  print(payload)
+  view_id <- payload$view$root_view_id
+  view_hash <- payload$view$hash
+  trigger_id <- payload$trigger_id
   
-  selection <- jsonlite::fromJSON(req$body$payload, F, F, F, F)$actions[[1]]$selected_option$value
-  
-  print(selection)
-  
-  view_id <- jsonlite::fromJSON(req$body$payload, F,F,F,F)$view$root_view_id
-  view_hash <- jsonlite::fromJSON(req$body$payload, F,F,F,F)$view$hash
-  trigger_id <- jsonlite::fromJSON(req$body$payload, F,F,F,F)$trigger_id
-  
-  response <- views_push(token = Sys.getenv("slack_auth_token"), 
-                         trigger_id = trigger_id,
-                         view = '
+  response <- httr::POST('https://slack.com/api/views.push', 
+                         
+                         body =  glue::glue(.open = "{{", .close = "}}", '
                          {
+  "trigger_id": "{{trigger_id}}",
+  "view": {
 	"type": "modal",
 	"title": {
 		"type": "plain_text",
@@ -103,6 +99,5 @@ push_next_view <- function(req){
 			"alt_text": "marg"
 		}
 	]
-}' %>% jsonlite::fromJSON(),
-                         return_response = T)
+}}'), encode = 'json', httr::content_type_json(), httr::add_headers(Authorization = glue::glue('Bearer {Sys.getenv("slack_auth_token)}')))
 }
