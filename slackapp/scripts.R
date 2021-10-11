@@ -44,7 +44,7 @@ push_next_view <- function(req){
   response <- httr::POST('https://slack.com/api/views.push', 
                          
                          body =  glue::glue(.open = "{{{{{", .close = "}}}}}", '
-                         {
+                         [{
   "trigger_id": "{{{{{trigger_id}}}}}",
   "view": [{
 	"type": "modal",
@@ -103,7 +103,7 @@ push_next_view <- function(req){
 			"alt_text": "marg"
 		}
 	]
-}]}'), 
+}]}]'), 
 
 encode = 'json', 
 
