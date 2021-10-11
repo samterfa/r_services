@@ -39,9 +39,9 @@ push_next_view <- function(req){
   
   response <- httr::POST('https://slack.com/api/views.push', 
                          
-                         body =  glue::glue(.open = "{{", .close = "}}", '
+                         body =  glue::glue(.open = "{{{{{", .close = "}}}}}", '
                          {
-  "trigger_id": "{{trigger_id}}",
+  "trigger_id": "{{{{{trigger_id}}}}}",
   {
 	"type": "modal",
 	"title": {
@@ -101,7 +101,7 @@ push_next_view <- function(req){
 	]
 }}'), encode = 'json', httr::content_type_json(), httr::add_headers(Authorization = glue::glue('Bearer {Sys.getenv("slack_auth_token)}')))
   
-  print(response)
+  print(httr::content(response))
   
   return('')
 }
