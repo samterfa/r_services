@@ -54,7 +54,7 @@ push_next_view <- function(req){
                          
                          httr::add_headers(Authorization = glue::glue('Bearer {Sys.getenv("slack_auth_token")}')))
   
-  httr::content(response)
+  print(httr::content(response))
   
   return('')
 }
