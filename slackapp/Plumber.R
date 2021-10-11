@@ -14,7 +14,6 @@ if(Sys.getenv('PORT') == '') Sys.setenv(PORT = 8000)
 #* @param res The response
 #* @param text The text typed into Slack (If any)
 #* @post /launch
-#* @serializer text
 function(req, res, text, ...){
   
   require(dplyr)
@@ -31,8 +30,6 @@ function(req, res, text, ...){
   )
   
   push_opening_view(req)
-  
-  return('')
 }
 
 
