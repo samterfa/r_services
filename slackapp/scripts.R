@@ -1,6 +1,8 @@
 
 push_opening_view <- function(req){
   
+  print(Sys.getenv('slack_auth_token'))
+  
   views_open(token = Sys.getenv('slack_auth_token'), 
              trigger_id = req$body$trigger_id, 
              view = view_object(type = 'modal', 
@@ -30,6 +32,8 @@ push_next_view <- function(req){
   
   require(dplyr)
   require(slackme)
+  
+  print(Sys.getenv('slack_auth_token'))
   
   payload <- jsonlite::fromJSON(req$body$payload, F, F, F, F)
   
@@ -105,7 +109,7 @@ encode = 'json',
 
 httr::content_type_json(), 
 
-httr::add_headers(Authorization = glue::glue('Bearer {Sys.getenv("slack_auth_token)}')))
+httr::add_headers(Authorization = glue::glue("Bearer {Sys.getenv('slack_auth_token')}")))
   
   print(glue::glue('Bearer {Sys.getenv("slack_auth_token)}'))
   

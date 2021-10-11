@@ -22,6 +22,8 @@ function(req, res, text, ...){
   
   source('scripts.R')
   
+  print(Sys.getenv('slack_auth_token'))
+  
   # Verify that request comes from Slack
   assertthat::assert_that(
     verify_request(request_timestamp = req$HTTP_X_SLACK_REQUEST_TIMESTAMP, 
@@ -56,6 +58,8 @@ function(req, res, ...){
                    request_body_raw = req$bodyRaw,
                    signing_secret = Sys.getenv('slack_signing_secret'))
   )
+  
+  print(Sys.getenv('slack_auth_token'))
   
   push_next_view(req)
   
