@@ -100,4 +100,8 @@ push_next_view <- function(req){
 		}
 	]
 }}'), encode = 'json', httr::content_type_json(), httr::add_headers(Authorization = glue::glue('Bearer {Sys.getenv("slack_auth_token)}')))
+  
+  print(response)
+  
+  return('')
 }

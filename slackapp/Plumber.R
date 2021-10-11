@@ -42,7 +42,7 @@ function(req, res, text, ...){
 #* @param text The text typed into Slack (If any)
 #* @post /interact
 #* @serializer text
-function(req, res, text, ...){
+function(req, res, ...){
   
   require(dplyr)
   require(slackme)
