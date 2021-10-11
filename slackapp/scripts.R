@@ -55,5 +55,5 @@ push_next_view <- function(req){
   # 
   # print(httr::content(response))
   
-  return(next_modal %>% toJSON(auto_unbox = T))
+  next_modal
 }
