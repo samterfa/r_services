@@ -42,7 +42,7 @@ push_next_view <- function(req){
                          body =  glue::glue(.open = "{{", .close = "}}", '
                          {
   "trigger_id": "{{trigger_id}}",
-  "view": {
+  {
 	"type": "modal",
 	"title": {
 		"type": "plain_text",
