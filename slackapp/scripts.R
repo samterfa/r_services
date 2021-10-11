@@ -109,9 +109,9 @@ encode = 'json',
 
 httr::content_type_json(), 
 
-httr::add_headers(Authorization = glue::glue("Bearer {Sys.getenv('slack_auth_token')}")))
+httr::add_headers(Authorization = glue::glue('Bearer {Sys.getenv("slack_auth_token")}')))
   
-  print(glue::glue('Bearer {Sys.getenv("slack_auth_token)}'))
+  print(glue::glue('Bearer {Sys.getenv("slack_auth_token")}'))
   
   return('')
 }
