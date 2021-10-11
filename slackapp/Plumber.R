@@ -56,5 +56,9 @@ function(req, res, ...){
                    signing_secret = Sys.getenv('slack_signing_secret'))
   )
   
-  push_next_view(req)
+  next_modal <- push_next_view(req)
+  
+  print(next_modal)
+  
+  next_modal
 }

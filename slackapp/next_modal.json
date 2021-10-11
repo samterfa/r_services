@@ -1,58 +1,19 @@
 {
-  	"type": "modal",
-  	"title": {
-  		"type": "plain_text",
-  		"text": "My App",
-  		"emoji": true
-  	},
-  	"submit": {
-  		"type": "plain_text",
-  		"text": "Submit",
-  		"emoji": true
-  	},
-  	"close": {
-  		"type": "plain_text",
-  		"text": "Cancel",
-  		"emoji": true
-  	},
-  	"blocks": [
-  		{
-  			"type": "divider"
-  		},
-  		{
-  			"type": "actions",
-  			"elements": [
-  				{
-  					"type": "button",
-  					"text": {
-  						"type": "plain_text",
-  						"text": "Kin Khao",
-  						"emoji": true
-  					},
-  					"value": "click_me_123",
-  					"url": "https://google.com"
-  				},
-  				{
-  					"type": "button",
-  					"text": {
-  						"type": "plain_text",
-  						"text": "Ler Ros",
-  						"emoji": true
-  					},
-  					"value": "click_me_123",
-  					"url": "https://google.com"
-  				}
-  			]
-  		},
-  		{
-  			"type": "image",
-  			"title": {
-  				"type": "plain_text",
-  				"text": "I Need a Marg",
-  				"emoji": true
-  			},
-  			"image_url": "https://sheets-uipbq6t2ga-uc.a.run.app/image.png",
-  			"alt_text": "marg"
-  		}
-  	]
+  "response_action": "update",
+  "view": {
+    "type": "modal",
+    "title": {
+      "type": "plain_text",
+      "text": "Updated view"
+    },
+    "blocks": [
+      {
+        "type": "section",
+        "text": {
+          "type": "plain_text",
+          "text": "I've changed and I'll never be the same. You must believe me."
+        }
+      }
+    ]
+  }
 }

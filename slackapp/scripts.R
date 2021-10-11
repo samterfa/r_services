@@ -38,10 +38,12 @@ push_next_view <- function(req){
   view_hash <- payload$view$hash
   trigger_id <- payload$trigger_id
   
-  next_modal <- list()
-  next_modal$view <- read_json('next_modal.json')
+#  next_modal <- list()
+#  next_modal$view <- read_json('next_modal.json')
  # next_modal$trigger_id <- trigger_id
-  next_modal$response_action <- "update"
+#  next_modal$response_action <- "update"
+  
+  next_modal <- read_json('next_modal.json')
   
   # response <- httr::POST('https://slack.com/api/views.push', 
   #                        
@@ -55,5 +57,5 @@ push_next_view <- function(req){
   # 
   # print(httr::content(response))
   
-  next_modal %>% toJSON(auto_unbox = T)
+  next_modal #%>% toJSON(auto_unbox = T)
 }
