@@ -111,7 +111,69 @@ httr::content_type_json(),
 
 httr::add_headers(Authorization = glue::glue('Bearer {Sys.getenv("slack_auth_token")}')))
   
-  print(glue::glue('Bearer {Sys.getenv("slack_auth_token")}'))
+  print(glue::glue(.open = "{{{{{", .close = "}}}}}", '
+                         {
+  "trigger_id": "{{{{{trigger_id}}}}}",
+  "view": {
+	"type": "modal",
+	"title": {
+		"type": "plain_text",
+		"text": "My App",
+		"emoji": true
+	},
+	"submit": {
+		"type": "plain_text",
+		"text": "Submit",
+		"emoji": true
+	},
+	"close": {
+		"type": "plain_text",
+		"text": "Cancel",
+		"emoji": true
+	},
+	"blocks": [
+		{
+			"type": "divider"
+		},
+		{
+			"type": "actions",
+			"elements": [
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "Kin Khao",
+						"emoji": true
+					},
+					"value": "click_me_123",
+					"url": "https://google.com"
+				},
+				{
+					"type": "button",
+					"text": {
+						"type": "plain_text",
+						"text": "Ler Ros",
+						"emoji": true
+					},
+					"value": "click_me_123",
+					"url": "https://google.com"
+				}
+			]
+		},
+		{
+			"type": "image",
+			"title": {
+				"type": "plain_text",
+				"text": "I Need a Marg",
+				"emoji": true
+			},
+			"image_url": "https://sheets-uipbq6t2ga-uc.a.run.app/image.png",
+			"alt_text": "marg"
+		}
+	]
+}}'))
+  
+  print(httr::content(response))
   
   return('')
 }
