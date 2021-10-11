@@ -99,9 +99,15 @@ push_next_view <- function(req){
 			"alt_text": "marg"
 		}
 	]
-}}'), encode = 'json', httr::content_type_json(), httr::add_headers(Authorization = glue::glue('Bearer {Sys.getenv("slack_auth_token)}')))
+}}'), 
+
+encode = 'json', 
+
+httr::content_type_json(), 
+
+httr::add_headers(Authorization = glue::glue('Bearer {Sys.getenv("slack_auth_token)}')))
   
-  print(httr::content(response))
+  print(glue::glue('Bearer {Sys.getenv("slack_auth_token)}'))
   
   return('')
 }
