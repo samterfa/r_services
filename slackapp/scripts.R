@@ -46,7 +46,7 @@ push_next_view <- function(req){
                          body =  glue::glue(.open = "{{{{{", .close = "}}}}}", '
                          {
   "trigger_id": "{{{{{trigger_id}}}}}",
-  "view": {
+  {
 	"type": "modal",
 	"title": {
 		"type": "plain_text",
@@ -114,7 +114,7 @@ httr::add_headers(Authorization = glue::glue('Bearer {Sys.getenv("slack_auth_tok
   print(glue::glue(.open = "{{{{{", .close = "}}}}}", '
                          {
   "trigger_id": "{{{{{trigger_id}}}}}",
-  "view": {
+  {
 	"type": "modal",
 	"title": {
 		"type": "plain_text",
