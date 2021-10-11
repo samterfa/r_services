@@ -40,7 +40,7 @@ push_next_view <- function(req){
   
   next_modal <- list()
   next_modal$view <- read_json('next_modal.json')
-  next_modal$trigger_id <- trigger_id
+ # next_modal$trigger_id <- trigger_id
   next_modal$response_action <- "update"
   
   # response <- httr::POST('https://slack.com/api/views.push', 
@@ -55,5 +55,5 @@ push_next_view <- function(req){
   # 
   # print(httr::content(response))
   
-  next_modal
+  next_modal %>% toJSON(auto_unbox = T)
 }
