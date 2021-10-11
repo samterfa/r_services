@@ -2,3 +2,4 @@
 *.creds*
 .R*
 *.Rproj*
+.Rproj.user
