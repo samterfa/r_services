@@ -4,6 +4,11 @@
       "type": "plain_text",
       "text": "Updated view"
     },
+    "close": {
+		"type": "plain_text",
+		"text": "Back",
+		"emoji": true
+	},
     "blocks": [
       {
         "type": "image",

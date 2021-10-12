@@ -6,7 +6,7 @@
 	},
 	"submit": {
 		"type": "plain_text",
-		"text": "Submit",
+		"text": "Next",
 		"emoji": true
 	},
 	"type": "modal",
