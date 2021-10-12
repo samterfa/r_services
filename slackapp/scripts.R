@@ -1,28 +1,34 @@
 
 push_opening_view <- function(req){
   
-  views_open(token = Sys.getenv('slack_auth_token'), 
-             trigger_id = req$body$trigger_id, 
-             view = view_object(type = 'modal', 
-                                title = text_object(type = 'plain_text', 
-                                                    text = 'Testing', 
-                                                    emoji = F), 
-                                blocks = list(context_block(elements = list(image_element(image_url = 'https://api.time.com/wp-content/uploads/2019/03/kitten-report.jpg',
-                                                                                          alt_text = 'Cutest Kitty')
-                                ), 
-                                block_id = 'action_button')), 
-                                close = text_object(type = 'plain_text', 
-                                                    text = 'Close', 
-                                                    emoji = F), 
-                                submit = text_object(type = 'plain_text', 
-                                                     text = 'Next', 
-                                                     emoji = F), 
-                                private_metadata = '', 
-                                callback_id = '', 
-                                clear_on_close = F, 
-                                notify_on_close = F, 
-                                external_id = ''), 
-             return_response = T)
+  library(jsonlite)
+  library(httr)
+  
+  trigger_id <- req$body$trigger_id
+  
+  opening_view <- list()
+  opening_view$view <- read_json('opening_modal.json')
+  opening_view$trigger_id <- trigger_id
+  
+  token <- Sys.getenv('slack_auth_token')
+  
+  print(token)
+  
+  response <- httr::POST('https://slack.com/api/views.open', 
+                         body = opening_view %>% jsonlite::toJSON(auto_unbox = T), 
+                         encode = 'json', 
+                         httr::content_type_json(), 
+                         httr::add_headers(Authorization = glue::glue('Bearer {token}')))
+  
+  body <- httr::content(response)
+  
+  print(body)
+  
+  # if(!body$ok){
+  #   stop(body$error)
+  # }
+  
+  body
 }
 
 
