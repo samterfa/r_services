@@ -1,30 +1,23 @@
 {
-	"title": {
-		"type": "plain_text",
-		"text": "My App",
-		"emoji": true
-	},
-	"submit": {
-		"type": "plain_text",
-		"text": "Submit",
-		"emoji": true
-	},
-	"type": "modal",
-	"close": {
-		"type": "plain_text",
-		"text": "Cancel",
-		"emoji": true
-	},
-	"blocks": [
-		{
-			"type": "image",
-			"title": {
-				"type": "plain_text",
-				"text": "I Need a Marg",
-				"emoji": true
-			},
-			"image_url": "https://assets3.thrillist.com/v1/image/1682388/size/tl-horizontal_main.jpg",
-			"alt_text": "marg"
-		}
-	]
+  "type": "modal",
+    "title": {
+      "type": "plain_text",
+      "text": "Updated view"
+    },
+    "blocks": [
+      {
+        "type": "image",
+        "image_url": "https://api.slack.com/img/blocks/bkb_template_images/plants.png",
+        "alt_text": "Plants"
+      },
+      {
+        "type": "context",
+        "elements": [
+          {
+            "type": "mrkdwn",
+            "text": "_Two of the author's cats sit aloof from the austere challenges of modern society_"
+          }
+        ]
+    }
+  ]
 }

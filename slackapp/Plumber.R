@@ -41,7 +41,7 @@ function(req, res, ...){
 #* @param req The request
 #* @param res The response
 #* @post /interact
-#* @serializer text
+#* @serializer unboxedJSON
 function(req, res, ...){
   
   require(dplyr)
@@ -57,8 +57,5 @@ function(req, res, ...){
   )
   
   # Push the view defined in opening_modal.json to Slack.
-  print(push_next_view(req))
-  
-  # Return empty response so that Slack doesn't post the response.
-  ''
+  push_next_view(req)
 }
