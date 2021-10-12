@@ -40,7 +40,8 @@ function(req, res, ...){
 #* Interacts with our Slack App
 #* @param req The request
 #* @param res The response
-#* @post /json
+#* @post /interact
+#* @serializer json
 function(req, res, ...){
   
   require(dplyr)
