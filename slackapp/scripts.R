@@ -1,3 +1,33 @@
+# Based on instructions from https://api.slack.com/authentication/verifying-requests-from-slack
+verify_request <- function(request_timestamp, request_signature, request_body_raw, signing_secret, version = 'v0'){
+  
+  library(dplyr)
+  
+  # Compute request signature
+  sig <- paste0(version, '=',
+                paste(version,
+                      request_timestamp,
+                      request_body_raw %>% rawToChar(),
+                      sep = ':') %>%
+                  digest::hmac(key = signing_secret,
+                               object = .,
+                               algo = 'sha256',
+                               serialize = F)
+  )
+  
+  # Make sure the request was recent and this isn't a replay attack.
+  if(abs(as.numeric(Sys.time()) - as.numeric(request_timestamp)) > 60*5){
+    stop("Code 425 - Possible Replay Attack")
+  }
+  
+  # Check for a match between the computed signature and the signature header.
+  if(!identical(sig, request_signature)){
+    stop("Code 401 - Authentication required")
+  }
+  
+  # Return true for verified request.
+  T
+}
 
 push_opening_view <- function(req){
   
