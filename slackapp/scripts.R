@@ -4,39 +4,40 @@ push_opening_view <- function(req){
   library(jsonlite)
   library(httr)
   
+  # Get trigger id from the request body.
   trigger_id <- req$body$trigger_id
   
-  opening_view <- list()
-  opening_view$view <- read_json('opening_modal.json')
-  opening_view$trigger_id <- trigger_id
+  # Define payload for the views.open method.
+  payload <- list()
+  payload$view <- read_json('opening_modal.json')
+  payload$trigger_id <- trigger_id
   
+  # Pull environmental variable storing our app's auth token.
   token <- Sys.getenv('slack_auth_token')
   
-  print(token)
-  
+  # Make the post request sending the payload to Slack.
   response <- httr::POST('https://slack.com/api/views.open', 
-                         body = opening_view %>% jsonlite::toJSON(auto_unbox = T), 
+                         body = payload %>% jsonlite::toJSON(auto_unbox = T), 
                          encode = 'json', 
                          httr::content_type_json(), 
                          httr::add_headers(Authorization = glue::glue('Bearer {token}')))
   
-  body <- httr::content(response)
+  # Check the response content for errors.
+  result <- httr::content(response)
   
-  print(body)
+  if(!result$ok){
+    stop(result$error)
+  }
   
-  # if(!body$ok){
-  #   stop(body$error)
-  # }
-  
-  body
+  # Return the response content
+  result
 }
 
 
 push_next_view <- function(req){
   
-  require(dplyr)
-  require(slackme)
-  require(jsonlite)
+  library(jsonlite)
+  library(httr)
   
   payload <- jsonlite::fromJSON(req$body$payload, F, F, F, F)
   
@@ -44,24 +45,28 @@ push_next_view <- function(req){
   view_hash <- payload$view$hash
   trigger_id <- payload$trigger_id
   
-#  next_modal <- list()
-#  next_modal$view <- read_json('next_modal.json')
- # next_modal$trigger_id <- trigger_id
-#  next_modal$response_action <- "update"
+  # Define payload for the views.open method.
+  payload <- list()
+  payload$view <- read_json('next_modal.json')
+  payload$trigger_id <- trigger_id
   
-  next_modal <- read_json('next_modal.json')
+  # Pull environmental variable storing our app's auth token.
+  token <- Sys.getenv('slack_auth_token')
   
-  # response <- httr::POST('https://slack.com/api/views.push', 
-  #                        
-  #                        body =  next_modal %>% toJSON(auto_unbox = T), 
-  #                        
-  #                        encode = 'json', 
-  #                        
-  #                        httr::content_type_json(), 
-  #                        
-  #                        httr::add_headers(Authorization = glue::glue('Bearer {Sys.getenv("slack_auth_token")}')))
-  # 
-  # print(httr::content(response))
+  # Make the post request sending the payload to Slack.
+  response <- httr::POST('https://slack.com/api/views.push', 
+                         body = payload %>% jsonlite::toJSON(auto_unbox = T), 
+                         encode = 'json', 
+                         httr::content_type_json(), 
+                         httr::add_headers(Authorization = glue::glue('Bearer {token}')))
   
-  next_modal #%>% toJSON(auto_unbox = T)
+  # Check the response content for errors.
+  result <- httr::content(response)
+  
+  # if(!result$ok){
+  #   stop(result$error)
+  # }
+  
+  # Return the response content
+  result
 }

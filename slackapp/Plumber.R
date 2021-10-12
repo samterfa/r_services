@@ -14,11 +14,10 @@ if(Sys.getenv('PORT') == '') Sys.setenv(PORT = 8000)
 #* @param res The response
 #* @param text The text typed into Slack (If any)
 #* @post /launch
-#* @serializer text
-function(req, res, text, ...){
+#* @serializer json
+function(req, res, ...){
   
   require(dplyr)
-  require(slackme)
   
   source('scripts.R')
   
@@ -30,21 +29,21 @@ function(req, res, text, ...){
                    signing_secret = Sys.getenv('slack_signing_secret'))
   )
   
-  push_opening_view(req)
+  # Push the view defined in opening_modal.json to Slack.
+  print(push_opening_view(req))
   
-  return('')
+  # Return empty response so that Slack doesn't post the response.
+  list()
 }
 
 
 #* Interacts with our Slack App
 #* @param req The request
 #* @param res The response
-#* @param text The text typed into Slack (If any)
-#* @post /interact
+#* @post /json
 function(req, res, ...){
   
   require(dplyr)
-  require(slackme)
   
   source('scripts.R')
   
@@ -56,9 +55,9 @@ function(req, res, ...){
                    signing_secret = Sys.getenv('slack_signing_secret'))
   )
   
-  next_modal <- push_next_view(req)
+  # Push the view defined in opening_modal.json to Slack.
+  print(push_next_modal(req))
   
-  print(next_modal)
-  
-  next_modal
+  # Return empty response so that Slack doesn't post the response.
+  list()
 }
