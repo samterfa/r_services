@@ -14,7 +14,7 @@ if(Sys.getenv('PORT') == '') Sys.setenv(PORT = 8000)
 #* @param res The response
 #* @param text The text typed into Slack (If any)
 #* @post /launch
-#* @serializer json
+#* @serializer text
 function(req, res, ...){
   
   require(dplyr)
@@ -33,7 +33,7 @@ function(req, res, ...){
   print(push_opening_view(req))
   
   # Return empty response so that Slack doesn't post the response.
-  list()
+  ''
 }
 
 
@@ -41,7 +41,7 @@ function(req, res, ...){
 #* @param req The request
 #* @param res The response
 #* @post /interact
-#* @serializer json
+#* @serializer text
 function(req, res, ...){
   
   require(dplyr)
@@ -57,8 +57,8 @@ function(req, res, ...){
   )
   
   # Push the view defined in opening_modal.json to Slack.
-  print(push_next_modal(req))
+  print(push_next_view(req))
   
   # Return empty response so that Slack doesn't post the response.
-  list()
+  ''
 }
